@@ -1,3 +1,7 @@
+# Vowel Chart
+
+## Ideas
+
 The user can insert a series of single points (single vowels) or glides.
 
 The vowels can be long or not

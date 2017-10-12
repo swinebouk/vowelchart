@@ -1,98 +1,103 @@
-class Vowel {
-  constructor(openness, frontness, rounded) {
-    this.openness = openness;
-    this.frontness = frontness;
-    this.rounded = rounded;
+
+class VowelChart {
+
+  constructor(canvas) {
+    this.ctx = canvas.getContext("2d");
+    this.canvasWidth = canvas.width;
   }
-}
 
+  get padding() {
+    if (!this._padding) {
+      this._padding = this.canvasWidth * 0.1;
+    }
+    return this._padding;
+  }
 
-var padding = function (canvasWidth) {
-  return canvasWidth * 0.1;
-}
+  get width() {
+    if (!this._width) {
+      this._width = this.canvasWidth - 2 * this.padding;
+    }
+    return this._width;
+  }
 
-var chartWidth = function(canvasWidth) {
-  return canvasWidth - 2 * padding(canvasWidth);
-}
+  get chartUnit() {
+    if (!this._chartUnit) {
+      this._chartUnit = this.width / 4;
+    }
+    return this._chartUnit;
+  }
 
-var chartUnit = function (canvasWidth) {
-  return chartWidth(canvasWidth) / 4;
-}
+  get height() {
+    if (!this._chartHeight) {
+      this._chartHeight = this.chartUnit * 3;
+    }
+    return this._chartHeight;
+  }
 
-var chartHeight = function(canvasWidth) {
-  return chartUnit(canvasWidth) * 3;
-}
+  get vowelMarkRadius() {
+    if (!this._vowelMarkRadius) {
+      this._vowelMarkRadius = this.chartUnit * 0.05;
+    }
+    return this._vowelMarkRadius;
+  }
 
-var vowelY = function(canvasWidth, vowel) {
-  return padding(canvasWidth) + vowel.openness * 3 * chartUnit(canvasWidth);
-}
+  vowelX(vowel) {
+    if (!this._vowelX) {
+      this._vowelX = {};
+    }
+    if (!(this._vowelX[vowel])) {
+      var unitsToSubstract = vowel.frontness * (-vowel.openness * 2 + 4);
+      this._vowelX[vowel] = this.padding + this.width - unitsToSubstract * this.chartUnit;
+    }
+    return this._vowelX[vowel];
+  }
 
-var vowelX = function(canvasWidth, vowel) {
-  var unitsToSubstract = vowel.frontness * (-vowel.openness * 2 + 4);
-  // console.log(`units to substract: ${unitsToSubstract}`);
-  return padding(canvasWidth) + chartWidth(canvasWidth) - unitsToSubstract * chartUnit(canvasWidth);
-}
+  vowelY(vowel) {
+    if (!this._vowelY) {
+      this._vowelY = {};
+    }
+    console.log(this._vowelY);
+    if (!(this._vowelY[vowel])) {
+      var value = this.padding + vowel.openness * 3 * this.chartUnit;
+      console.log(`goign to store ${vowel.openness},${vowel.frontness} as ${value}`)
+      this._vowelY[vowel] = value;
+    }
+    return this._vowelY[vowel];
+  }
 
-// Primary set of vowels
-var closeFrontVowel = new Vowel(0, 1, false);
-var midcloseFrontVowel = new Vowel(1/3, 1, false);
-var midopenFrontVowel = new Vowel(2/3, 1, false);
-var openFrontVowel = new Vowel(1, 1, false);
-var openBackVowel = new Vowel(1, 0, true);
-var midopenBackVowel = new Vowel(2/3, 0, true);
-var midcloseBackVowel = new Vowel(1/3, 0, true);
-var closeBackVowel = new Vowel(0, 0, true);
+  vowelXY(vowel) {
+    return [this.vowelX(vowel), this.vowelY(vowel)];
+  }
 
-// Other vowels
-var openMidVowel = new Vowel(1, 0.5, false); // TODO roundedness
-var closeMidVowel = new Vowel(0, 0.5, false); // TODO roundedness
+  markVowel(vowel) {
+    var x, y;
+    [x, y] = this.vowelXY(vowel);
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, this.vowelMarkRadius, 0, 2 * Math.PI);
+    this.ctx.fill();
+  }
 
-function drawVowelChart() {
-  var canvas = document.getElementById("vowel-chart");
-  var ctx = canvas.getContext("2d");
-  var padding = canvas.width * 0.1;
-  var chartWidth = canvas.width - 2 * padding;
-  var chartHeight = chartWidth * 3 / 4;
-  var chartUnit = chartWidth / 4;
-  canvas.height = 2 * padding + chartHeight;
+  drawBorder() {
+    // Using o for the open back vowel, for simplicity
+    var iX, iY, uX, uY, aX, aY, oX, oY;
 
-  console.log(`${chartWidth} ${chartHeight}`);
+    [iX, iY] = this.vowelXY(closeFrontVowel);
+    [uX, uY] = this.vowelXY(closeBackVowel);
+    [aX, aY] = this.vowelXY(openFrontVowel);
+    [oX, oY] = this.vowelXY(openBackVowel);
 
-  var markVowel = function (vowel) {
-    var x = vowelX(canvas.width, vowel);
-    var y = vowelY(canvas.width, vowel);
-    console.log(`will draw a rectangle here: ${x} ${y}`)
-    ctx.fillRect(x, y, 7, 7);
-  };
+    this.markVowel(closeFrontVowel);
+    this.markVowel(closeBackVowel);
+    this.markVowel(openFrontVowel);
+    this.markVowel(openBackVowel);
 
-  markVowel(closeFrontVowel);
-  markVowel(openFrontVowel);
-  markVowel(openBackVowel);
-  markVowel(closeBackVowel);
+    this.ctx.beginPath();
+    this.ctx.moveTo(iX, iY);
+    this.ctx.lineTo(uX, uY);
+    this.ctx.lineTo(oX, oY);
+    this.ctx.lineTo(aX, aY);
+    this.ctx.closePath();
+    this.ctx.stroke();
+  }
 
-  ctx.beginPath();
-
-  // Outline
-  ctx.moveTo(padding, padding);
-  ctx.lineTo(padding + chartWidth, padding);
-  ctx.lineTo(padding + chartWidth, padding + chartHeight);
-  ctx.lineTo(padding + chartWidth - 2 * chartUnit, padding + chartHeight);
-  ctx.closePath();
-  ctx.stroke();
-
-  // Vertical central axis
-  ctx.moveTo(padding + 2 * chartUnit, padding);
-  ctx.lineTo(padding + chartWidth - chartUnit, padding + chartHeight);
-  ctx.stroke();
-
-  // Mid-closed line
-
-}
-
-function drawVowel(openness, frontness) {
-
-}
-
-function draw() {
-  drawVowelChart();
 }
