@@ -56,10 +56,8 @@ class VowelChart {
     if (!this._vowelY) {
       this._vowelY = {};
     }
-    console.log(this._vowelY);
     if (!(this._vowelY[vowel])) {
       var value = this.padding + vowel.openness * 3 * this.chartUnit;
-      console.log(`goign to store ${vowel.openness},${vowel.frontness} as ${value}`)
       this._vowelY[vowel] = value;
     }
     return this._vowelY[vowel];
