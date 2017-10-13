@@ -5,5 +5,10 @@ module.exports = {
     },
     "env": {
         "browser": true,
-    }
+    },
+    "globals": {
+      "define": false,
+      "require": false,
+      "requirejs": false,
+    },
 };
