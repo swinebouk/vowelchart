@@ -11,3 +11,8 @@ window.addEventListener('load', function () {
   chart.drawBorder()
   chart.markAllVowels()
 })
+
+document.getElementById('download').addEventListener('click', function () {
+  this.href = document.getElementById('vowel-chart').toDataURL()
+  this.download = 'vowel-chart.png'
+}, false)
