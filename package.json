@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "eslint": "^4.8.0"
+    "eslint": "^4.8.0",
+    "lodash": "^4.17.4",
+    "webpack": "^3.7.1"
   },
   "devDependencies": {
     "eslint-config-standard": "^10.2.1",
@@ -10,6 +12,7 @@
     "eslint-plugin-standard": "^3.0.1"
   },
   "scripts": {
-    "test": "./node_modules/eslint/bin/eslint.js ."
+    "test": "./node_modules/.bin/eslint .",
+    "build": "./node_modules/.bin/webpack"
   }
 }
