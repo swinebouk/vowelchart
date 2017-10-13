@@ -4,4 +4,4 @@ install:
   - yarn
 
 script:
-  - ./node_modules/eslint/bin/eslint.js .
+  - npm test
