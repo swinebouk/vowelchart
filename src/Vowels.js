@@ -11,6 +11,24 @@ export default {
       unrounded: new Vowel(1, 0, true, 'ɑ'),
     },
   },
+  nearopen: {
+    front: {
+      unrounded: new Vowel(5 / 6, 1, false, 'æ'),
+    },
+    central: {
+      unrounded: new Vowel(5 / 6, 0.5, false, 'ɐ'),
+    }
+  },
+  openmid: {
+    front: {
+      unrounded: new Vowel(2 / 3, 1, false, 'ɛ'),
+      rounded: new Vowel(2 / 3, 1, true, 'œ'),
+    },
+    back: {
+      unrounded: new Vowel(2 / 3, 0, false, 'ʌ'),
+      rounded: new Vowel(2 / 3, 0, true, 'ɔ'),
+    },
+  },
   close: {
     front: {
       unrounded: new Vowel(0, 1, false, 'i'),

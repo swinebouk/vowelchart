@@ -28,6 +28,14 @@ export class VowelChart {
     return (this._vowelMarkRadius = this._vowelMarkRadius || this.chartUnit * 0.05)
   }
 
+  get textDistance () {
+    return this.chartUnit / 5
+  }
+
+  get textSize () {
+    return this.chartUnit / 5
+  }
+
   vowelX (vowel) {
     // TODO use a = a || b
     if (!this._vowelX) {
@@ -53,14 +61,11 @@ export class VowelChart {
     return [this.vowelX(vowel), this.vowelY(vowel)]
   }
 
-  get textDistance () {
-    return this.chartUnit / 5
-  }
-
   markVowel (vowel, symbol = null) {
     const [x, y] = this.vowelXY(vowel)
     const originalTextAlign = this.ctx.textAlign
     const originalTextBaseline = this.ctx.textBaseline
+    const originalFont = this.ctx.font
     const actualSymbol = symbol || vowel.symbol
 
     const textX = vowel.rounded ? x + this.textDistance : x - this.textDistance
@@ -71,10 +76,13 @@ export class VowelChart {
 
     this.ctx.textAlign = 'center'
     this.ctx.textBaseline = 'middle'
+    this.ctx.font = `${this.textSize}pt sans-serif`
+
     this.ctx.fillText(actualSymbol, textX, y)
 
     this.ctx.textAlign = originalTextAlign
     this.ctx.textBaseline = originalTextBaseline
+    this.ctx.font = originalFont
   }
 
   drawBorder () {
@@ -83,11 +91,6 @@ export class VowelChart {
     const [aX, aY] = this.vowelXY(Vowels.open.front.unrounded)
     const [oX, oY] = this.vowelXY(Vowels.open.back.unrounded)
 
-    this.markVowel(Vowels.close.front.unrounded)
-    this.markVowel(Vowels.close.back.rounded)
-    this.markVowel(Vowels.open.front.unrounded)
-    this.markVowel(Vowels.open.back.unrounded)
-
     this.ctx.beginPath()
     this.ctx.moveTo(iX, iY)
     this.ctx.lineTo(uX, uY)
@@ -95,5 +98,20 @@ export class VowelChart {
     this.ctx.lineTo(aX, aY)
     this.ctx.closePath()
     this.ctx.stroke()
+  }
+
+  markAllVowels () {
+    this.markVowel(Vowels.open.front.unrounded)
+    this.markVowel(Vowels.open.back.unrounded)
+    this.markVowel(Vowels.openmid.front.unrounded)
+    this.markVowel(Vowels.openmid.front.rounded)
+    this.markVowel(Vowels.openmid.back.unrounded)
+    this.markVowel(Vowels.openmid.back.rounded)
+    this.markVowel(Vowels.close.front.rounded)
+    this.markVowel(Vowels.close.front.unrounded)
+    this.markVowel(Vowels.close.central.rounded)
+    this.markVowel(Vowels.close.central.unrounded)
+    this.markVowel(Vowels.close.back.rounded)
+    this.markVowel(Vowels.close.back.unrounded)
   }
 }
