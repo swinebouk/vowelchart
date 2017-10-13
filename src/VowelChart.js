@@ -1,6 +1,14 @@
-const Vowel = require('Vowel.js')
+import {Vowel} from './Vowel'
+import {closeFrontVowel} from './Vowel'
+import {midcloseFrontVowel} from './Vowel'
+import {midopenFrontVowel} from './Vowel'
+import {openFrontVowel} from './Vowel'
+import {openBackVowel} from './Vowel'
+import {midopenBackVowel} from './Vowel'
+import {midcloseBackVowel} from './Vowel'
+import {closeBackVowel} from './Vowel'
 
-class VowelChart {
+export class VowelChart {
   constructor (canvas) {
     this.ctx = canvas.getContext('2d')
     this.canvasWidth = canvas.width
@@ -79,17 +87,15 @@ class VowelChart {
 
   drawBorder () {
     // Using o for the open back vowel, for simplicity
-    var iX, iY, uX, uY, aX, aY, oX, oY;
+    const [iX, iY] = this.vowelXY(closeFrontVowel)
+    const [uX, uY] = this.vowelXY(closeBackVowel)
+    const [aX, aY] = this.vowelXY(openFrontVowel)
+    const [oX, oY] = this.vowelXY(openBackVowel)
 
-    [iX, iY] = this.vowelXY(Vowel.closeFrontVowel);
-    [uX, uY] = this.vowelXY(Vowel.closeBackVowel);
-    [aX, aY] = this.vowelXY(Vowel.openFrontVowel);
-    [oX, oY] = this.vowelXY(Vowel.openBackVowel)
-
-    this.markVowel(Vowel.closeFrontVowel)
-    this.markVowel(Vowel.closeBackVowel)
-    this.markVowel(Vowel.openFrontVowel)
-    this.markVowel(Vowel.openBackVowel)
+    this.markVowel(closeFrontVowel)
+    this.markVowel(closeBackVowel)
+    this.markVowel(openFrontVowel)
+    this.markVowel(openBackVowel)
 
     this.ctx.beginPath()
     this.ctx.moveTo(iX, iY)
@@ -99,8 +105,4 @@ class VowelChart {
     this.ctx.closePath()
     this.ctx.stroke()
   }
-}
-
-module.exports = {
-  VowelChart,
 }
