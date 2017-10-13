@@ -1,12 +1,14 @@
-import {Vowel} from './Vowel'
-import {closeFrontVowel} from './Vowel'
-import {midcloseFrontVowel} from './Vowel'
-import {midopenFrontVowel} from './Vowel'
-import {openFrontVowel} from './Vowel'
-import {openBackVowel} from './Vowel'
-import {midopenBackVowel} from './Vowel'
-import {midcloseBackVowel} from './Vowel'
-import {closeBackVowel} from './Vowel'
+import {
+  Vowel,
+  closeFrontVowel,
+  midcloseFrontVowel,
+  midopenFrontVowel,
+  openFrontVowel,
+  openBackVowel,
+  midopenBackVowel,
+  midcloseBackVowel,
+  closeBackVowel,
+} from './Vowel'
 
 export class VowelChart {
   constructor (canvas) {
@@ -15,31 +17,19 @@ export class VowelChart {
   }
 
   get padding () {
-    if (!this._padding) {
-      this._padding = this.canvasWidth * 0.1
-    }
-    return this._padding
+    return (this._padding = this._padding || this.canvasWidth * 0.1)
   }
 
   get width () {
-    if (!this._width) {
-      this._width = this.canvasWidth - 2 * this.padding
-    }
-    return this._width
+    return (this._width = this._width || this.canvasWidth - 2 * this.padding)
   }
 
   get chartUnit () {
-    if (!this._chartUnit) {
-      this._chartUnit = this.width / 4
-    }
-    return this._chartUnit
+    return (this._chartUnit = this._chartUnit || this._chartUnit = this.width / 4)
   }
 
   get height () {
-    if (!this._chartHeight) {
-      this._chartHeight = this.chartUnit * 3
-    }
-    return this._chartHeight
+    return (this._chartHeight = this._chartHeight || this._chartHeight = this.chartUnit * 3)
   }
 
   get vowelMarkRadius () {
