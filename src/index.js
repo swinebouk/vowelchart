@@ -1,3 +1,5 @@
+'use strict'
+
 import {VowelChart} from './VowelChart'
 
 window.addEventListener('load', function () {

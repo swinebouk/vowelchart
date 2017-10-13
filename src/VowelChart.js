@@ -1,14 +1,6 @@
-import {
-  Vowel,
-  closeFrontVowel,
-  midcloseFrontVowel,
-  midopenFrontVowel,
-  openFrontVowel,
-  openBackVowel,
-  midopenBackVowel,
-  midcloseBackVowel,
-  closeBackVowel,
-} from './Vowel'
+'use strict'
+
+import Vowels from './Vowels'
 
 export class VowelChart {
   constructor (canvas) {
@@ -25,18 +17,15 @@ export class VowelChart {
   }
 
   get chartUnit () {
-    return (this._chartUnit = this._chartUnit || this._chartUnit = this.width / 4)
+    return (this._chartUnit = this._chartUnit || this.width / 4)
   }
 
   get height () {
-    return (this._chartHeight = this._chartHeight || this._chartHeight = this.chartUnit * 3)
+    return (this._chartHeight = this._chartHeight || this.chartUnit * 3)
   }
 
   get vowelMarkRadius () {
-    if (!this._vowelMarkRadius) {
-      this._vowelMarkRadius = this.chartUnit * 0.05
-    }
-    return this._vowelMarkRadius
+    return (this._vowelMarkRadius = this._vowelMarkRadius || this.chartUnit * 0.05)
   }
 
   vowelX (vowel) {
@@ -52,12 +41,9 @@ export class VowelChart {
   }
 
   vowelY (vowel) {
-    // TODO use a = a || b
-    if (!this._vowelY) {
-      this._vowelY = {}
-    }
+    this._vowelY = this._vowelY || {}
     if (!(this._vowelY[vowel])) {
-      var value = this.padding + vowel.openness * 3 * this.chartUnit
+      const value = this.padding + vowel.openness * 3 * this.chartUnit
       this._vowelY[vowel] = value
     }
     return this._vowelY[vowel]
@@ -67,25 +53,40 @@ export class VowelChart {
     return [this.vowelX(vowel), this.vowelY(vowel)]
   }
 
-  markVowel (vowel) {
-    var x, y;
-    [x, y] = this.vowelXY(vowel)
+  get textDistance () {
+    return this.chartUnit / 5
+  }
+
+  markVowel (vowel, symbol = null) {
+    const [x, y] = this.vowelXY(vowel)
+    const originalTextAlign = this.ctx.textAlign
+    const originalTextBaseline = this.ctx.textBaseline
+    const actualSymbol = symbol || vowel.symbol
+
+    const textX = vowel.rounded ? x + this.textDistance : x - this.textDistance
+
     this.ctx.beginPath()
     this.ctx.arc(x, y, this.vowelMarkRadius, 0, 2 * Math.PI)
     this.ctx.fill()
+
+    this.ctx.textAlign = 'center'
+    this.ctx.textBaseline = 'middle'
+    this.ctx.fillText(actualSymbol, textX, y)
+
+    this.ctx.textAlign = originalTextAlign
+    this.ctx.textBaseline = originalTextBaseline
   }
 
   drawBorder () {
-    // Using o for the open back vowel, for simplicity
-    const [iX, iY] = this.vowelXY(closeFrontVowel)
-    const [uX, uY] = this.vowelXY(closeBackVowel)
-    const [aX, aY] = this.vowelXY(openFrontVowel)
-    const [oX, oY] = this.vowelXY(openBackVowel)
+    const [iX, iY] = this.vowelXY(Vowels.close.front.unrounded)
+    const [uX, uY] = this.vowelXY(Vowels.close.back.rounded)
+    const [aX, aY] = this.vowelXY(Vowels.open.front.unrounded)
+    const [oX, oY] = this.vowelXY(Vowels.open.back.unrounded)
 
-    this.markVowel(closeFrontVowel)
-    this.markVowel(closeBackVowel)
-    this.markVowel(openFrontVowel)
-    this.markVowel(openBackVowel)
+    this.markVowel(Vowels.close.front.unrounded)
+    this.markVowel(Vowels.close.back.rounded)
+    this.markVowel(Vowels.open.front.unrounded)
+    this.markVowel(Vowels.open.back.unrounded)
 
     this.ctx.beginPath()
     this.ctx.moveTo(iX, iY)
