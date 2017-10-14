@@ -17,7 +17,7 @@ export default {
     },
     central: {
       unrounded: new Vowel(5 / 6, 0.5, false, 'ɐ'),
-    }
+    },
   },
   openmid: {
     front: {
