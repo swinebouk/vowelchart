@@ -1,6 +1,8 @@
 'use strict'
 
+import Vowel from './Vowel'
 import Vowels from './Vowels'
+import _ from 'lodash'
 
 export class VowelChart {
   constructor (canvas) {
@@ -86,10 +88,10 @@ export class VowelChart {
   }
 
   drawBorder () {
-    const [iX, iY] = this.vowelXY(Vowels.close.front.unrounded)
-    const [uX, uY] = this.vowelXY(Vowels.close.back.rounded)
-    const [aX, aY] = this.vowelXY(Vowels.open.front.unrounded)
-    const [oX, oY] = this.vowelXY(Vowels.open.back.unrounded)
+    const [iX, iY] = this.vowelXY(new Vowel(-0.05, 1.05, false))
+    const [uX, uY] = this.vowelXY(new Vowel(-0.05, -0.05, false))
+    const [aX, aY] = this.vowelXY(new Vowel(1.05, 1.05, false))
+    const [oX, oY] = this.vowelXY(new Vowel(1.05, -0.05, false))
 
     this.ctx.beginPath()
     this.ctx.moveTo(iX, iY)
@@ -101,17 +103,32 @@ export class VowelChart {
   }
 
   markAllVowels () {
-    this.markVowel(Vowels.open.front.unrounded)
-    this.markVowel(Vowels.open.back.unrounded)
-    this.markVowel(Vowels.openmid.front.unrounded)
-    this.markVowel(Vowels.openmid.front.rounded)
-    this.markVowel(Vowels.openmid.back.unrounded)
-    this.markVowel(Vowels.openmid.back.rounded)
-    this.markVowel(Vowels.close.front.rounded)
-    this.markVowel(Vowels.close.front.unrounded)
-    this.markVowel(Vowels.close.central.rounded)
-    this.markVowel(Vowels.close.central.unrounded)
-    this.markVowel(Vowels.close.back.rounded)
-    this.markVowel(Vowels.close.back.unrounded)
+    const vowels = [
+      Vowels.open.front.unrounded,
+      Vowels.open.back.unrounded,
+      Vowels.nearOpen.front.unrounded,
+      Vowels.nearOpen.central.unrounded,
+      Vowels.openMid.front.unrounded,
+      Vowels.openMid.front.rounded,
+      Vowels.openMid.back.unrounded,
+      Vowels.openMid.back.rounded,
+      Vowels.mid.central.unrounded,
+      Vowels.closeMid.front.rounded,
+      Vowels.closeMid.front.unrounded,
+      Vowels.closeMid.central.rounded,
+      Vowels.closeMid.central.unrounded,
+      Vowels.closeMid.back.rounded,
+      Vowels.closeMid.back.unrounded,
+      Vowels.nearClose.nearFront.rounded,
+      Vowels.nearClose.nearFront.unrounded,
+      Vowels.nearClose.nearBack.rounded,
+      Vowels.close.front.rounded,
+      Vowels.close.front.unrounded,
+      Vowels.close.central.rounded,
+      Vowels.close.central.unrounded,
+      Vowels.close.back.rounded,
+      Vowels.close.back.unrounded,
+    ]
+    _.each(vowels, (vowel) => this.markVowel(vowel))
   }
 }
