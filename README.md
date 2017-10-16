@@ -1,5 +1,7 @@
 # Vowel Chart
 
+[![Build Status](https://travis-ci.org/jleeothon/vowelchart.svg?branch=master)](https://travis-ci.org/jleeothon/vowelchart)
+
 ## Ideas
 
 The user can insert a series of single points (single vowels) or glides.
