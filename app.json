@@ -1,8 +1,5 @@
 {
   "name": "vowelchart",
-  "scripts": {
-    "postdeploy": "npm install && npm run build"
-  },
   "env": {
   },
   "formation": {
@@ -12,7 +9,7 @@
   ],
   "buildpacks": [
     {
-      "url": "https://github.com/heroku/heroku-buildpack-static.git"
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs#v87"
     }
   ]
 }
