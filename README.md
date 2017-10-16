@@ -1,6 +1,6 @@
 # Vowel Chart
 
-[![Build Status](https://travis-ci.org/jleeothon/vowelchart.svg?branch=master)](https://travis-ci.org/jleeothon/vowelchart)
+[![Build Status](https://travis-ci.org/schweinebauch-heroes/vowelchart.svg?branch=master)](https://travis-ci.org/schweinebauch-heroes/vowelchart)
 
 ## Ideas
 
