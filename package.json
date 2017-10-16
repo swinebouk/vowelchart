@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "eslint": "^4.8.0",
+    "koa": "^2.3.0",
+    "koa-static": "^4.0.1",
     "lodash": "^4.17.4",
     "webpack": "^3.7.1"
   },
