@@ -103,32 +103,17 @@ export class VowelChart {
   }
 
   markAllVowels () {
-    const vowels = [
-      Vowels.open.front.unrounded,
-      Vowels.open.back.unrounded,
-      Vowels.nearOpen.front.unrounded,
-      Vowels.nearOpen.central.unrounded,
-      Vowels.openMid.front.unrounded,
-      Vowels.openMid.front.rounded,
-      Vowels.openMid.back.unrounded,
-      Vowels.openMid.back.rounded,
-      Vowels.mid.central.unrounded,
-      Vowels.closeMid.front.rounded,
-      Vowels.closeMid.front.unrounded,
-      Vowels.closeMid.central.rounded,
-      Vowels.closeMid.central.unrounded,
-      Vowels.closeMid.back.rounded,
-      Vowels.closeMid.back.unrounded,
-      Vowels.nearClose.nearFront.rounded,
-      Vowels.nearClose.nearFront.unrounded,
-      Vowels.nearClose.nearBack.rounded,
-      Vowels.close.front.rounded,
-      Vowels.close.front.unrounded,
-      Vowels.close.central.rounded,
-      Vowels.close.central.unrounded,
-      Vowels.close.back.rounded,
-      Vowels.close.back.unrounded,
-    ]
-    _.each(vowels, (vowel) => this.markVowel(vowel))
+    _.each(
+      Vowels,
+      (frontnessGroup) => _.each(
+        frontnessGroup,
+        (opennessGroup) => _.each(
+          opennessGroup, _.each(
+            opennessGroup,
+            vowel => this.markVowel(vowel)
+          )
+        )
+      )
+    )
   }
 }
