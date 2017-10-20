@@ -18,6 +18,6 @@
   "scripts": {
     "test": "./node_modules/.bin/eslint .",
     "build": "./node_modules/.bin/webpack",
-    "start": "yarn run build && node index.js"
+    "start": "npm run build && node index.js"
   }
 }
