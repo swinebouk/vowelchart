@@ -1,38 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Interactive Vowel Chart</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
-  <link rel="stylesheet" href="index.css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Interactive Vowel Chart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
+    <link rel="stylesheet" href="index.css"/>
 </head>
-<body class="page-layout">
+<body class="page-columns">
 <div class="container navbar-container">
-  <div class="navbar">
-    <div class="navbar-brand">
-      <div class="navbar-item logo"><a href="//zyx.vowelchart.xyz">interactive vowel chart</a></div>
-    </div>
-    <div class="navbar-menu">
-      <div class="navbar-start"></div>
-      <div class="navbar-end">
-        <a class="navbar-item is-hidden-desktop-only" href="https://github.com/schweinebauch-heroes/vowelchart" target="_blank">
+    <div class="navbar">
+        <div class="navbar-brand">
+            <div class="navbar-item logo"><a href="//zyx.vowelchart.xyz">interactive vowel chart</a></div>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start"></div>
+            <div class="navbar-end">
+                <a class="navbar-item is-hidden-desktop-only" href="https://github.com/schweinebauch-heroes/vowelchart"
+                   target="_blank">
         <span class="icon" style="color: #333;">
           <i class="fa fa-lg fa-github"></i>
         </span>
-        </a>
-      </div>
+                </a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <section class="section">
-  <div class="container">
-    <canvas id="vowel-chart"></canvas>
-    <p>
-      <a id="download" class="button">Download PNG</a>
-    </p>
-  </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <canvas id="vowel-chart"></canvas>
+                <p>
+                    <a id="download" class="button">Download PNG</a>
+                </p>
+            </div>
+            <div class="column">
+                <ul>
+                    <li>
+                        <div class="columns">
+                            <div class="column">
+                                <label class="checkbox">
+                                <input type="checkbox"/>
+                                </label>
+                            </div>
+                            <div class="column">
+                                <div class="select">
+                                    <select>
+                                        <option>Front</option>
+                                        <option>Near-Front</option>
+                                        <option>Central</option>
+                                        <option>Near-Back</option>
+                                        <option>Back</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="select">
+                                    <select>
+                                        <option>close</option>
+                                        <option>near-close</option>
+                                        <option>close-mid</option>
+                                        <option>mid</option>
+                                        <option>open-mid</option>
+                                        <option>near-open</option>
+                                        <option>open</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <div class="select">
+                                    <select>
+                                        <option>rounded</option>
+                                        <option>unrounded</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="column">
+                                <input class="input" type="text" placeholder="Text input">
+                            </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </section>
 <script src="./bundle.js" type="application/javascript"></script>
 <footer class="footer"><a href="https://github.com/schweinebauch-heroes/vowelchart">Fork me on Github.com</a></footer>
