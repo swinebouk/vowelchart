@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "eslint": "^4.8.0",
+    "imports-loader": "^0.7.1",
     "koa": "^2.3.0",
     "koa-router": "^7.2.1",
     "koa-static": "^4.0.1",
