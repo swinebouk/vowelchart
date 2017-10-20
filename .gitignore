@@ -3,4 +3,4 @@ node_modules
 package-lock.json
 .idea
 yarn-error.log
-static/bundle.js
+public/bundle.js
