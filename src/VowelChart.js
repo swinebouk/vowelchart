@@ -1,13 +1,8 @@
 'use strict'
 
-import Vowel from './Vowel'
-import Vowels from './Vowels'
-import _ from 'lodash'
-
-export class VowelChart {
-  constructor (canvas) {
-    this.ctx = canvas.getContext('2d')
-    this.canvasWidth = canvas.width
+export default class VowelChart {
+  constructor (width) {
+    this.canvasWidth = width
   }
 
   get padding () {
@@ -61,59 +56,5 @@ export class VowelChart {
 
   vowelXY (vowel) {
     return [this.vowelX(vowel), this.vowelY(vowel)]
-  }
-
-  markVowel (vowel, symbol = null) {
-    const [x, y] = this.vowelXY(vowel)
-    const originalTextAlign = this.ctx.textAlign
-    const originalTextBaseline = this.ctx.textBaseline
-    const originalFont = this.ctx.font
-    const actualSymbol = symbol || vowel.symbol
-
-    const textX = vowel.rounded ? x + this.textDistance : x - this.textDistance
-
-    this.ctx.beginPath()
-    this.ctx.arc(x, y, this.vowelMarkRadius, 0, 2 * Math.PI)
-    this.ctx.fill()
-
-    this.ctx.textAlign = 'center'
-    this.ctx.textBaseline = 'middle'
-    this.ctx.font = `${this.textSize}pt sans-serif`
-
-    this.ctx.fillText(actualSymbol, textX, y)
-
-    this.ctx.textAlign = originalTextAlign
-    this.ctx.textBaseline = originalTextBaseline
-    this.ctx.font = originalFont
-  }
-
-  drawBorder () {
-    const [iX, iY] = this.vowelXY(new Vowel(-0.05, 1.05, false))
-    const [uX, uY] = this.vowelXY(new Vowel(-0.05, -0.05, false))
-    const [aX, aY] = this.vowelXY(new Vowel(1.05, 1.05, false))
-    const [oX, oY] = this.vowelXY(new Vowel(1.05, -0.05, false))
-
-    this.ctx.beginPath()
-    this.ctx.moveTo(iX, iY)
-    this.ctx.lineTo(uX, uY)
-    this.ctx.lineTo(oX, oY)
-    this.ctx.lineTo(aX, aY)
-    this.ctx.closePath()
-    this.ctx.stroke()
-  }
-
-  markAllVowels () {
-    _.each(
-      Vowels,
-      (frontnessGroup) => _.each(
-        frontnessGroup,
-        (opennessGroup) => _.each(
-          opennessGroup, _.each(
-            opennessGroup,
-            vowel => this.markVowel(vowel)
-          )
-        )
-      )
-    )
   }
 }
