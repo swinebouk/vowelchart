@@ -2,7 +2,7 @@
 
 import Vowel from './Vowel'
 
-export default {
+export const Vowels = {
   open: {
     front: {
       unrounded: new Vowel(1, 1, false, 'a'),
@@ -71,4 +71,15 @@ export default {
       rounded: new Vowel(0, 0, true, 'ɯ'),
     },
   },
+}
+
+export function * list (vowels = null) {
+  vowels = vowels || Vowels
+  for (const v in vowels) {
+    if (vowels[v] instanceof Vowel) {
+      yield vowels[v]
+    } else {
+      yield * list(vowels[v])
+    }
+  }
 }
