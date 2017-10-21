@@ -27,6 +27,6 @@
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint",
     "start": "react-scripts start",
-    "test": "npm run lint . && ./node_modules/.bin/react-scripts test --env=jsdom"
+    "test": "./node_modules/.bin/eslint . && ./node_modules/.bin/react-scripts test --env=jsdom"
   }
 }
