@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+}
+
+.navbar-item img.App-logo {
+  max-height: 4rem;
+}
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 4rem;
+
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+span.icon.github {
+  color: #333;
+}
+
+
+.navbar-item.logo a {
+  font-size: 2.0rem;
+}
+
+.navbar, .navbar-container {
+  background-color: lightgray;
+}
+
+.column.right {
+  margin-top: 50px;
+}

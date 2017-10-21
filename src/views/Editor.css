@@ -1,0 +1,12 @@
+input.vowel-name {
+    width: 2rem;
+}
+
+li.editorRow {
+    padding: 0 0 0.5rem 0;
+}
+
+li input[type=checkbox] {
+    margin-right: 0.25rem;
+    margin-top: 0.8rem;
+}
