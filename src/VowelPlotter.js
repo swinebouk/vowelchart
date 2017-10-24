@@ -90,6 +90,6 @@ export default class VowelPlotter extends Component {
 }
 
 VowelPlotter.propTypes = {
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  width: PropTypes.string.isRequired,
+  height: PropTypes.string.isRequired,
 }

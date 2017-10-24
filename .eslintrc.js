@@ -7,9 +7,7 @@ module.exports = {
         "browser": true,
     },
     "globals": {
-      "define": false,
-      "require": false,
-      "requirejs": false,
+      "it": false,
     },
     "parserOptions": {
       "ecmaFeatures": {
