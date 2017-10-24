@@ -4,7 +4,6 @@ import './App.css'
 import Editor from './views/Editor'
 import VowelPlotter from './VowelPlotter'
 
-
 class App extends Component {
   render () {
     return (
