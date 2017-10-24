@@ -1,5 +1,3 @@
-'use strict'
-
 export default class Vowel {
   constructor (openness, frontness, rounded, symbol = null) {
     this._openness = openness
