@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import logo from './porcus.svg'
 import './App.css'
 import Editor from './views/Editor'
-import VowelChart from './VowelChart'
+import VowelPlotter from './VowelPlotter'
 
 
 class App extends Component {
@@ -35,7 +35,7 @@ class App extends Component {
           <div className="container">
             <div className="columns">
               <div className="column">
-                <VowelChart/>
+                <VowelPlotter width="500" height="500"/>
               </div>
               <div className="column right">
                 <Editor/>

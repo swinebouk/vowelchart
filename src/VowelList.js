@@ -1,5 +1,3 @@
-'use strict'
-
 import Vowel from './Vowel'
 
 export const Vowels = {

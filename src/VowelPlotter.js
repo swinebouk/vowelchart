@@ -1,15 +1,34 @@
-import Snap from 'snapsvg'
+import Snap from 'snapsvg-cjs'
 import _ from 'lodash'
+
+import React, { Component } from 'react'
 
 import VowelChart from './VowelChart'
 import {Vowels} from './VowelList'
+import {list} from './VowelList'
 
-export default class VowelPlotter {
-  constructor (vowelchart) {
-    this.vowelChart = new VowelChart(500)
-    this.snap = new Snap('#vowel-chart')
+export default class VowelPlotter extends Component {
+  constructor (props) {
+    super(props)
+    this.vowelChart = new VowelChart(this.props.width)
   }
 
+  svgRender () {
+    this.snap = new Snap(this.svgElem)
+
+    this.drawBorder()
+    _.each([...list()], v => this.markVowel(v))
+  }
+
+  componentDidMount () {
+    this.svgRender()
+  }
+  componentDidUpdate () {
+    this.svgRender()
+  }
+  render () {
+    return <svg ref={(d) => this.svgElem = d} height={this.props.height} width={this.props.width}/>
+  }
   get borderAttr () {
     this._borderAttr = this._borderAttr || {fill: 'none', stroke: 'black'}
     return this._borderAttr
