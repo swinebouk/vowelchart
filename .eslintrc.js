@@ -8,6 +8,9 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:jest/recommended",
   ],
+  'globals': {
+    'it': false,
+  },
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -34,7 +37,7 @@ module.exports = {
       "tagNamePreference": {
         "param": "param",
         "returns": "returns",
-      },
+      }
     },
   },
 };
