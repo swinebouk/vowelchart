@@ -2,10 +2,10 @@ import Snap from 'snapsvg-cjs'
 import _ from 'lodash'
 
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import VowelChart from './VowelChart'
-import {Vowels} from './VowelList'
-import {list} from './VowelList'
+import {list, Vowels} from './VowelList'
 
 export default class VowelPlotter extends Component {
   constructor (props) {
@@ -27,7 +27,7 @@ export default class VowelPlotter extends Component {
     this.svgRender()
   }
   render () {
-    return <svg ref={(d) => this.svgElem = d} height={this.props.height} width={this.props.width}/>
+    return <svg ref={(d) => (this.svgElem = d)} height={this.props.height} width={this.props.width}/>
   }
   get borderAttr () {
     this._borderAttr = this._borderAttr || {fill: 'none', stroke: 'black'}
@@ -87,4 +87,9 @@ export default class VowelPlotter extends Component {
     )
     text.attr(this.labelAttr)
   }
+}
+
+VowelPlotter.propTypes = {
+  width: PropTypes.integer.isRequired,
+  height: PropTypes.integer.isRequired,
 }
