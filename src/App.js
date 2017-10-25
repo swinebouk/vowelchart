@@ -4,6 +4,8 @@ import './App.css'
 import Editor from './views/Editor'
 import VowelPlotter from './VowelPlotter'
 
+import {list} from './VowelList'
+
 class App extends Component {
   render () {
     return (
@@ -37,7 +39,7 @@ class App extends Component {
                 <VowelPlotter width="500" height="500"/>
               </div>
               <div className="column right">
-                <Editor/>
+                <Editor vowelList={list}/>
               </div>
             </div>
           </div>
