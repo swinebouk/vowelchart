@@ -68,7 +68,6 @@ export default class VowelPlotter extends Component {
   }
 
   markVowelCircle (vowel) {
-    console.log(this.vowelChart.vowelXY(vowel))
     const circle = this.snap.circle(
       this.vowelChart.vowelX(vowel),
       this.vowelChart.vowelY(vowel),
