@@ -11,6 +11,7 @@ module.exports = {
   'globals': {
     'it': false,
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
