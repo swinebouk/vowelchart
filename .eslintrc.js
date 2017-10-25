@@ -1,13 +1,15 @@
 module.exports = {
-  "extends": ["standard", "plugin:react/recommended"],
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+  ],
   "rules": {
     "comma-dangle": ["error", "always-multiline"],
   },
   "env": {
-      "browser": true,
-  },
-  "globals": {
-    "it": false,
+    "browser": true,
+    "jest/globals": true,
   },
   "parserOptions": {
     "ecmaFeatures": {
@@ -15,6 +17,7 @@ module.exports = {
     },
   },
   "plugins": [
-    "react"
+    "jest",
+    "react",
   ],
 };
