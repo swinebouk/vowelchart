@@ -1,3 +1,8 @@
+import _ from 'lodash'
+
+import Vowel from './Vowel'
+import {Openness, Frontness, Roundness} from './Articulation'
+
 /**
  * Takes a query string and returns an array of vowels.
  *
@@ -19,10 +24,33 @@ export default class VowelLang {
   }
 
   /**
-   * @param {string} text A string like "open front unrounded".
+   * @param {string} text A string like "open+front+unrounded".
+   * @param {string} symbol
    * @returns {Vowel} The corresponding vowel.
-   * @example textToVowel("open front unrounded") # new Vowel(1, 1, false)
+   * @example textToVowel("open+front+unrounded") # new Vowel(1, 1, false)
    */
-  textToVowel (text) {
+  textToVowel (text, symbol) {
+    const [openness, frontness, roundness] = text.split('+')
+    if (![openness, frontness, roundness].every(e => _.isString(e))) {
+      throw new TypeError(`Unparseable: ${text}`)
+    }
+    const unrecognizedProperties = {}
+    if (!_.has(Openness, openness)) {
+      unrecognizedProperties.openness = openness
+    }
+    if (!_.has(Frontness, frontness)) {
+      unrecognizedProperties.frontness = frontness
+    }
+    if (!_.has(Roundness, roundness)) {
+      unrecognizedProperties.roundness = roundness
+    }
+    if (!_.isEmpty(unrecognizedProperties)) {
+      const kvPairs = _.map(unrecognizedProperties, (v) => `"${v}"`)
+      throw new TypeError(`Unrecognized ${kvPairs.join(', ')}`)
+    }
+    const o = Openness[openness]
+    const f = Frontness[frontness]
+    const r = Roundness[roundness]
+    return new Vowel(o, f, r, symbol)
   }
 }
