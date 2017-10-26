@@ -5,7 +5,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import VowelChart from './VowelChart'
-import {list, Vowels} from './VowelList'
+import vowels, {findDefaultVowel} from './VowelList'
+
+import {
+  Openness as O,
+  Frontness as F,
+  Roundness as R,
+} from './Articulation'
 
 export default class VowelPlotter extends Component {
   constructor (props) {
@@ -17,7 +23,7 @@ export default class VowelPlotter extends Component {
     this.snap = new Snap(this.svgElem)
 
     this.drawBorder()
-    _.each([...list()], v => this.markVowel(v))
+    _.each(vowels, v => this.markVowel(v))
   }
 
   componentDidMount () {
@@ -51,10 +57,10 @@ export default class VowelPlotter extends Component {
 
   drawBorder () {
     const coordinatePairs = [
-      this.vowelChart.vowelXY(Vowels.close.front.unrounded),
-      this.vowelChart.vowelXY(Vowels.close.back.rounded),
-      this.vowelChart.vowelXY(Vowels.open.back.unrounded),
-      this.vowelChart.vowelXY(Vowels.open.front.unrounded),
+      this.vowelChart.vowelXY(findDefaultVowel(O.close, F.front, R.unrounded)),
+      this.vowelChart.vowelXY(findDefaultVowel(O.close, F.back, R.rounded)),
+      this.vowelChart.vowelXY(findDefaultVowel(O.open, F.back, R.unrounded)),
+      this.vowelChart.vowelXY(findDefaultVowel(O.open, F.front, R.unrounded)),
     ]
     const formattedPairs = _.map(coordinatePairs, p => p.join(','))
     const points = formattedPairs.join(' ')
