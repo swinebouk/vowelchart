@@ -12,11 +12,8 @@ export default class VowelLang {
    */
   parse (query) {
     const kvAsString = query.split('&')
-    console.log(kvAsString)
     const kvAsArray = kvAsString.map(kvPair => kvPair.split('='))
-    console.log(kvAsArray)
     const kvDecoded = kvAsArray.map(kvPair => [decodeURIComponent(kvPair[0]), kvPair[1]])
-    console.log(kvDecoded)
     const map = new Map(kvDecoded)
     return map
   }

@@ -1,83 +1,68 @@
 import Vowel from './Vowel'
+import _ from 'lodash'
 
-export const Vowels = {
-  open: {
-    front: {
-      unrounded: new Vowel(1, 1, false, 'a'),
-    },
-    back: {
-      unrounded: new Vowel(1, 0, false, 'ɑ'),
-    },
-  },
-  nearOpen: {
-    front: {
-      unrounded: new Vowel(5 / 6, 1, false, 'æ'),
-    },
-    central: {
-      unrounded: new Vowel(5 / 6, 0.5, false, 'ɐ'),
-    },
-  },
-  openMid: {
-    front: {
-      unrounded: new Vowel(2 / 3, 1, false, 'ɛ'),
-      rounded: new Vowel(2 / 3, 1, true, 'œ'),
-    },
-    back: {
-      unrounded: new Vowel(2 / 3, 0, false, 'ʌ'),
-      rounded: new Vowel(2 / 3, 0, true, 'ɔ'),
-    },
-  },
-  mid: {
-    central: {
-      unrounded: new Vowel(0.5, 0.5, false, 'ə'),
-    },
-  },
-  closeMid: {
-    front: {
-      unrounded: new Vowel(1 / 3, 1, false, 'e'),
-      rounded: new Vowel(1 / 3, 1, true, 'ø'),
-    },
-    central: {
-      unrounded: new Vowel(1 / 3, 0.5, false, 'ɘ'),
-      rounded: new Vowel(1 / 3, 0.5, true, 'ɵ'),
-    },
-    back: {
-      unrounded: new Vowel(1 / 3, 0, false, 'ɤ'),
-      rounded: new Vowel(1 / 3, 0, true, 'o'),
-    },
-  },
-  nearClose: {
-    nearFront: {
-      unrounded: new Vowel(1 / 6, 5 / 6, false, 'ɪ'),
-      rounded: new Vowel(1 / 6, 5 / 6, true, 'ʏ'),
-    },
-    nearBack: {
-      rounded: new Vowel(1 / 6, 1 / 6, true, 'ʊ'),
-    },
-  },
-  close: {
-    front: {
-      unrounded: new Vowel(0, 1, false, 'i'),
-      rounded: new Vowel(0, 1, true, 'y'),
-    },
-    central: {
-      unrounded: new Vowel(0, 0.5, false, 'ɨ'),
-      rounded: new Vowel(0, 0.5, true, 'ʉ'),
-    },
-    back: {
-      unrounded: new Vowel(0, 0, false, 'u'),
-      rounded: new Vowel(0, 0, true, 'ɯ'),
-    },
-  },
-}
+import {
+  Openness as O,
+  Frontness as F,
+  Roundness as R,
+} from './Articulation'
 
-export function * list (vowels = null) {
-  vowels = vowels || Vowels
-  for (const v in vowels) {
-    if (vowels[v] instanceof Vowel) {
-      yield vowels[v]
-    } else {
-      yield * list(vowels[v])
-    }
+let vowels = [
+  new Vowel(O.close, F.front, R.unrounded, 'i'),
+  new Vowel(O.close, F.front, R.rounded, 'y'),
+  new Vowel(O.close, F.central, R.unrounded, 'ɨ'),
+  new Vowel(O.close, F.central, R.rounded, 'ʉ'),
+  new Vowel(O.close, F.back, R.unrounded, 'ɯ'),
+  new Vowel(O.close, F.back, R.rounded, 'u'),
+  new Vowel(O.nearClose, F.nearFront, R.unrounded, 'ɪ'),
+  new Vowel(O.nearClose, F.nearFront, R.rounded, 'ʏ'),
+  new Vowel(O.nearClose, F.central, R.unrounded, 'ɪ̈'),
+  new Vowel(O.nearClose, F.central, R.rounded, 'ʊ̈'),
+  new Vowel(O.nearClose, F.nearBack, R.unrounded, 'ɯ̽'),
+  new Vowel(O.nearClose, F.nearBack, R.rounded, 'ʊ'),
+  new Vowel(O.closeMid, F.front, R.unrounded, 'e'),
+  new Vowel(O.closeMid, F.front, R.rounded, 'ø'),
+  new Vowel(O.closeMid, F.central, R.unrounded, 'ɘ'),
+  new Vowel(O.closeMid, F.central, R.rounded, 'ɵ'),
+  new Vowel(O.closeMid, F.back, R.unrounded, 'ɤ'),
+  new Vowel(O.closeMid, F.back, R.rounded, 'o'),
+  new Vowel(O.mid, F.front, R.unrounded, 'e̞'),
+  new Vowel(O.mid, F.front, R.rounded, 'ø̞'),
+  new Vowel(O.mid, F.central, R.unrounded, 'ə'),
+  new Vowel(O.mid, F.central, R.rounded, 'ɵ̞'),
+  new Vowel(O.mid, F.back, R.unrounded, 'ɤ̞'),
+  new Vowel(O.mid, F.back, R.rounded, 'o̞'),
+  new Vowel(O.openMid, F.front, R.unrounded, 'ɛ'),
+  new Vowel(O.openMid, F.front, R.rounded, 'œ'),
+  new Vowel(O.openMid, F.central, R.unrounded, 'ɜ'),
+  new Vowel(O.openMid, F.central, R.rounded, 'ɞ'),
+  new Vowel(O.openMid, F.back, R.unrounded, 'ʌ'),
+  new Vowel(O.openMid, F.back, R.rounded, 'ɔ'),
+  new Vowel(O.nearOpen, F.front, R.unrounded, 'æ'),
+  new Vowel(O.nearOpen, F.central, R.unrounded, 'ɐ'),
+  new Vowel(O.nearOpen, F.central, R.rounded, 'ɞ̞'),
+  new Vowel(O.open, F.front, R.unrounded, 'a'),
+  new Vowel(O.open, F.front, R.rounded, 'Œ'),
+  new Vowel(O.open, F.central, R.unrounded, 'ä'),
+  new Vowel(O.open, F.central, R.rounded, 'ɒ̈'),
+  new Vowel(O.open, F.back, R.unrounded, 'ɑ'),
+  new Vowel(O.open, F.back, R.rounded, 'ɒ'),
+]
+
+vowels = Object.freeze(_.map(vowels, v => Object.freeze(v)))
+
+export default vowels
+
+/**
+ * @param {float} openness
+ * @param {float} frontness
+ * @param {bool} rounded
+ */
+export function findDefaultVowel (openness, frontness, rounded) {
+  const f = v => v.openness === openness && v.frontness === frontness && v.rounded === rounded
+  const v = _.find(vowels, f)
+  if (v) {
+    return v
   }
+  throw new Error(`Cannot find vowel (${openness}, ${frontness}, ${rounded})`)
 }
