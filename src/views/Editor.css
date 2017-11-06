@@ -10,3 +10,7 @@ li input[type=checkbox] {
     margin-right: 0.25rem;
     margin-top: 0.8rem;
 }
+
+li fieldset {
+    border: none;
+}
