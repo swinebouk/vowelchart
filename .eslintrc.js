@@ -8,10 +8,11 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:jest/recommended",
   ],
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
-    },
+    }
   },
   "plugins": [
     "jest",
@@ -34,7 +35,7 @@ module.exports = {
       "tagNamePreference": {
         "param": "param",
         "returns": "returns",
-      },
+      }
     },
   },
 };

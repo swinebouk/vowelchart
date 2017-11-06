@@ -20,3 +20,9 @@ export const Roundness = Object.freeze({
   rounded: true,
   unrounded: false,
 })
+
+export default Object.freeze({
+  Frontness: Frontness,
+  Openness: Openness,
+  Roundness: Roundness,
+})

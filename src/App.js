@@ -3,8 +3,28 @@ import logo from './porcus.svg'
 import './App.css'
 import Editor from './views/Editor'
 import VowelPlotter from './VowelPlotter'
+import _ from 'lodash'
+import PropTypes from 'prop-types'
+
+import vowels from './VowelList'
 
 class App extends Component {
+  state = {
+    vowels: [],
+  }
+
+  static propTypes = {
+    vowels: PropTypes.arrayOf(PropTypes.shape({
+      _frontness: PropTypes.number.isRequired,
+      _openness: PropTypes.number.isRequired,
+      _rounded: PropTypes.bool.isRequired,
+    })),
+  }
+
+  componentWillMount () {
+    this.setState({vowels: _.cloneDeep(vowels)})
+  }
+
   render () {
     return (
       <div className="container">
@@ -34,10 +54,10 @@ class App extends Component {
           <div className="container">
             <div className="columns">
               <div className="column">
-                <VowelPlotter width="500" height="500"/>
+                <VowelPlotter width="500" height="500" vowelList={this.state.vowels}/>
               </div>
               <div className="column right">
-                <Editor/>
+                <Editor vowelList={this.state.vowels}/>
               </div>
             </div>
           </div>

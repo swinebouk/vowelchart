@@ -14,6 +14,11 @@ import {
 } from './Articulation'
 
 export default class VowelPlotter extends Component {
+  static propTypes = {
+    width: PropTypes.string.isRequired,
+    height: PropTypes.string.isRequired,
+  }
+
   constructor (props) {
     super(props)
     this.vowelChart = new VowelChart(this.props.width)
@@ -92,9 +97,4 @@ export default class VowelPlotter extends Component {
     )
     text.attr(this.labelAttr)
   }
-}
-
-VowelPlotter.propTypes = {
-  width: PropTypes.string.isRequired,
-  height: PropTypes.string.isRequired,
 }
