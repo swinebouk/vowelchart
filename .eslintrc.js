@@ -8,9 +8,6 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:jest/recommended",
   ],
-  'globals': {
-    'it': false,
-  },
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
