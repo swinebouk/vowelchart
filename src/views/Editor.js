@@ -3,6 +3,7 @@ import './Editor.css'
 import PropTypes from 'prop-types'
 
 import _ from 'lodash'
+import Vowel from '../Vowel'
 
 class VowelPropComponent extends Component {
   // eslint-disable-line no-unused-vars
@@ -115,11 +116,11 @@ class EditorRow extends Component {
 class Editor extends Component {
   // eslint-disable-line no-unused-vars
   static propTypes = {
-    vowelList: PropTypes.func.isRequired,
+    vowelList: PropTypes.arrayOf(Vowel.propTypes),
   }
 
   componentWillMount () {
-    this.vowels = [...this.props.vowelList()]
+    this.vowels = this.props.vowelList
   }
 
   render () {
