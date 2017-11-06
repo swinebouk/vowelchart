@@ -11,13 +11,16 @@ class SelectArticulation extends Component {
     articulation: PropTypes.oneOf(['Frontness', 'Openness', 'Roundness']).isRequired,
   }
 
-  onChange () {
-
-  }
-
   constructor (props) {
     super(props)
     this.state = {value: props.value, articulation: props.articulation}
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange (e) {
+    let state = {}
+    state[e.innerHTML] = e.value
+    this.setState(state)
   }
 
   render () {
@@ -27,7 +30,7 @@ class SelectArticulation extends Component {
     })
     return (
       <fieldset className="select">
-        <select value={this.state.value}>
+        <select value={this.state.value} onChange={this.handleChange}>
           {propSelectors}
         </select>
       </fieldset>
@@ -50,17 +53,24 @@ class EditorRow extends Component {
     visible: true,
   }
 
-  onChange () {}
+  constructor (props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange (e) {
+    console.log('editorRow changed', e.target)
+  }
 
   render () {
     return (
       <li className="editorRow">
         <label className="checkbox">
-          <input type="checkbox" value={this.props.visible} onChange={this.onChange}/>
-          <SelectArticulation articulation="Frontness" value={this.props._frontness} onChange={this.onChange}/>
-          <SelectArticulation articulation="Openness" value={this.props._openness} onChange={this.onChange}/>
-          <SelectArticulation articulation="Roundness" value={this.props._rounded} onChange={this.onChange}/>
-          <input className="input vowel-name" type="text" placeholder="i" value={this.props._symbol} onChange={this.onChange} />
+          <input type="checkbox" value={this.props.visible} onChange={this.handleChange}/>
+          <SelectArticulation articulation="Frontness" value={this.props._frontness} onChange={this.handleChange}/>
+          <SelectArticulation articulation="Openness" value={this.props._openness} onChange={this.handleChange}/>
+          <SelectArticulation articulation="Roundness" value={this.props._rounded} onChange={this.handleChange}/>
+          <input className="input vowel-name" type="text" placeholder="i" value={this.props._symbol} onChange={this.handleChange} />
         </label>
       </li>
     )
