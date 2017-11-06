@@ -21,13 +21,13 @@ class SelectArticulation extends Component {
   }
 
   render () {
-    const propSelectors = _.map(Articulation[this.props.articulation], (numerical, position) => {
+    const propSelectors = _.map(Articulation[this.props.articulation], (numValue, position) => {
       const uniqueKey = _.capitalize(this.props.articulation) + _.capitalize(position) + 'Selector'
-      return <option value={numerical} key={uniqueKey}>{position}</option>
+      return <option value={numValue} key={uniqueKey}>{position}</option>
     })
     return (
       <fieldset className="select">
-        <select>
+        <select value={this.state.value}>
           {propSelectors}
         </select>
       </fieldset>
