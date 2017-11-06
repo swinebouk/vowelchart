@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import './Editor.css'
 import PropTypes from 'prop-types'
-
 import _ from 'lodash'
-import Vowel from '../Vowel'
+import Articulation from '../Articulation'
 
-class VowelPropComponent extends Component {
+class SelectArticulation extends Component {
   // eslint-disable-line no-unused-vars
   static propTypes = {
-    value: PropTypes.number.isRequired,
+    value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+    articulation: PropTypes.oneOf(['Frontness', 'Openness', 'Roundness']).isRequired,
   }
 
   onChange () {
@@ -17,66 +17,20 @@ class VowelPropComponent extends Component {
 
   constructor (props) {
     super(props)
-    this.state = {value: props.value}
-  }
-}
-
-class FrontnessSelector extends VowelPropComponent {
-  render () {
-    return (
-      <input value={this.props.value} onChange={this.onChange} />
-      /*
-      <div className="select">
-        <select>
-          <option>Front</option>
-          <option>Near-Front</option>
-          <option>Central</option>
-          <option>Near-Back</option>
-          <option>Back</option>
-        </select>
-      </div>
-      */
-    )
-  }
-}
-
-class OpennessSelector extends VowelPropComponent {
-  render () {
-    return (
-      <input value={this.props.value} onChange={this.onChange} />
-      /*
-      <div className="select">
-        <select>
-          <option>Close</option>
-          <option>Near-close</option>
-          <option>Close-mid</option>
-          <option>Mid</option>
-          <option>Open-mid</option>
-          <option>Near-open</option>
-          <option>Open</option>
-        </select>
-      </div>
-      */
-    )
-  }
-}
-
-class RoundnessSelector extends VowelPropComponent {
-  static propTypes = {
-    value: PropTypes.bool.isRequired,
+    this.state = {value: props.value, articulation: props.articulation}
   }
 
   render () {
+    const propSelectors = _.map(Articulation[this.props.articulation], (numerical, position) => {
+      const uniqueKey = _.capitalize(this.props.articulation) + _.capitalize(position) + 'Selector'
+      return <option value={numerical} key={uniqueKey}>{position}</option>
+    })
     return (
-      <input value={this.props.value} onChange={this.onChange} />
-      /*
-      <div className="select">
+      <fieldset className="select">
         <select>
-          <option>rounded</option>
-          <option>unrounded</option>
+          {propSelectors}
         </select>
-      </div>
-      */
+      </fieldset>
     )
   }
 }
@@ -103,9 +57,9 @@ class EditorRow extends Component {
       <li className="editorRow">
         <label className="checkbox">
           <input type="checkbox" value={this.props.visible} onChange={this.onChange}/>
-          <FrontnessSelector value={this.props._frontness}/>
-          <OpennessSelector value={this.props._openness}/>
-          <RoundnessSelector value={this.props._rounded}/>
+          <SelectArticulation articulation="Frontness" value={this.props._frontness} onChange={this.onChange}/>
+          <SelectArticulation articulation="Openness" value={this.props._openness} onChange={this.onChange}/>
+          <SelectArticulation articulation="Roundness" value={this.props._rounded} onChange={this.onChange}/>
           <input className="input vowel-name" type="text" placeholder="i" value={this.props._symbol} onChange={this.onChange} />
         </label>
       </li>
@@ -116,7 +70,11 @@ class EditorRow extends Component {
 class Editor extends Component {
   // eslint-disable-line no-unused-vars
   static propTypes = {
-    vowelList: PropTypes.arrayOf(Vowel.propTypes),
+    vowelList: PropTypes.arrayOf(PropTypes.shape({
+      _frontness: PropTypes.number.isRequired,
+      _openness: PropTypes.number.isRequired,
+      _rounded: PropTypes.bool.isRequired,
+    })),
   }
 
   componentWillMount () {
