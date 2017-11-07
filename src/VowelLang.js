@@ -28,6 +28,7 @@ export default class VowelLang {
    * @param {string} symbol
    * @returns {Vowel} The corresponding vowel.
    * @example textToVowel("open+front+unrounded") # new Vowel(1, 1, false)
+   * @example textToVowel("close+front+unrounded", 'i') # new Vowel(0, 1, false, 'i')
    */
   textToVowel (text, symbol) {
     const [openness, frontness, roundness] = text.split('+')
