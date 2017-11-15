@@ -29,6 +29,8 @@ test('Parses text to vowel', () => {
     ['openMid+back+rounded', 'ɔ', new Vowel(O.openMid, F.back, R.rounded, 'ɔ')],
     // Mock vowel that does not exist
     ['nearOpen+back+rounded', 'O', new Vowel(O.nearOpen, F.back, R.rounded, 'O')],
+    // Default symbols are correctly found
+    ['open+front+unrounded', null, new Vowel(O.open, F.front, R.unrounded, 'a')],
   ]
   vowelsToTest.forEach(v => {
     expect(parser.textToVowel(v[0], v[1])).toEqual(v[2])

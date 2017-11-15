@@ -2,6 +2,7 @@ import _ from 'lodash'
 
 import Vowel from './Vowel'
 import {Openness, Frontness, Roundness} from './Articulation'
+import {findDefaultVowel} from './VowelList'
 
 /**
  * Takes a query string and returns an array of vowels.
@@ -52,6 +53,13 @@ export default class VowelLang {
     const o = Openness[openness]
     const f = Frontness[frontness]
     const r = Roundness[roundness]
+    if (!symbol) {
+      try {
+        return findDefaultVowel(o, f, r)
+      } catch (e) {
+        return new Vowel(o, f, r, symbol)
+      }
+    }
     return new Vowel(o, f, r, symbol)
   }
 }
