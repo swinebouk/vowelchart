@@ -18,9 +18,7 @@ class SelectArticulation extends Component {
   }
 
   handleChange (e) {
-    let state = {}
-    state[e.innerHTML] = e.value
-    this.setState(state)
+    this.setState({value: e.target.value})
   }
 
   render () {
