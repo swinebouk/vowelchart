@@ -20,9 +20,11 @@ class SelectArticulation extends Component {
 
   handleChange (e) {
     let changeset = {}
-    changeset[this.props.articulation] = parseFloat(e.target.value)
+    const bool = {'true': true, 'false': false}
+    let parsedValue = e.target.value in bool ? bool[e.target.value] : parseFloat(e.target.value)
+    changeset[this.props.articulation] = parsedValue
     this.props.onChange(changeset)
-    this.setState({value: parseFloat(e.target.value)})
+    this.setState({value: parsedValue})
   }
 
   render () {
