@@ -8,7 +8,8 @@ class SelectArticulation extends Component {
   // eslint-disable-line no-unused-vars
   static propTypes = {
     value: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
-    articulation: PropTypes.oneOf(['Frontness', 'Openness', 'Roundness']).isRequired,
+    articulation: PropTypes.oneOf(['_frontness', '_openness', '_roundness']).isRequired,
+    onChange: PropTypes.func.isRequired,
   }
 
   constructor (props) {
@@ -18,11 +19,15 @@ class SelectArticulation extends Component {
   }
 
   handleChange (e) {
-    this.setState({value: e.target.value})
+    let changeset = {}
+    changeset[this.props.articulation] = parseFloat(e.target.value)
+    this.props.onChange(changeset)
+    this.setState({value: parseFloat(e.target.value)})
   }
 
   render () {
-    const propSelectors = _.map(Articulation[this.props.articulation], (numValue, position) => {
+    const articulationName = _(this.props.articulation).chain().trimStart('_').capitalize().value()
+    const propSelectors = _.map(Articulation[articulationName], (numValue, position) => {
       const uniqueKey = _.capitalize(this.props.articulation) + _.capitalize(position) + 'Selector'
       return <option value={numValue} key={uniqueKey}>{position}</option>
     })

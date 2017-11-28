@@ -18,8 +18,13 @@ class Editor extends Component {
     this.vowels = this.props.vowelList
   }
 
+  updateVowel (vowel, changeset) {
+    _.assign(vowel, changeset)
+    this.vowels.onUpdate()
+  }
+
   render () {
-    const editorRows = _.map(this.vowels, (vowel) => <EditorRow {...vowel} key={vowel.toString()} />)
+    const editorRows = _.map(this.vowels, (vowel) => <EditorRow {...vowel} onUpdate={_.bind(this.updateVowel, this, vowel)} key={vowel.toString()} />)
 
     return (
       <section>

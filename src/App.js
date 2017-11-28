@@ -22,7 +22,9 @@ class App extends Component {
   }
 
   componentWillMount () {
-    this.setState({vowels: _.cloneDeep(vowels)})
+    let vowelList = _.cloneDeep(vowels)
+    vowelList.onUpdate = () => alert('Huuuuch!')
+    this.setState({vowels: vowelList})
   }
 
   render () {
