@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "concurrently": "^3.5.1",
     "eve": "~0.5.1",
     "imports-loader": "^0.7.1",
     "koa": "^2.3.0",
@@ -31,7 +32,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "lint": "./node_modules/.bin/eslint",
-    "start": "react-scripts start",
+    "start": "./node_modules/.bin/concurrently \"react-scripts start\" \"node index.js\"",
     "test": "npm run lint . && ./node_modules/.bin/react-scripts test --env=jsdom"
   }
 }
