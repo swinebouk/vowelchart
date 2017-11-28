@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import VowelChart from './VowelChart'
-import vowels, {findDefaultVowel} from './VowelList'
+import { findDefaultVowel } from './VowelList'
 
 import {
   Openness as O,
@@ -17,6 +17,12 @@ export default class VowelPlotter extends Component {
   static propTypes = {
     width: PropTypes.string.isRequired,
     height: PropTypes.string.isRequired,
+    vowelList: PropTypes.arrayOf(PropTypes.shape({
+      _frontness: PropTypes.number.isRequired,
+      _openness: PropTypes.number.isRequired,
+      _rounded: PropTypes.bool.isRequired,
+      _symbol: PropTypes.string.isRequired,
+    })),
   }
 
   constructor (props) {
@@ -26,9 +32,16 @@ export default class VowelPlotter extends Component {
 
   svgRender () {
     this.snap = new Snap(this.svgElem)
-
+    this.snap.clear()
     this.drawBorder()
-    _.each(vowels, v => this.markVowel(v))
+    _.each(this.vowelList, v => this.markVowel(v))
+  }
+
+  componentWillMount () {
+    this.vowelList = this.props.vowelList
+    this.vowelList.onUpdate = () => {
+      this.svgRender()
+    }
   }
 
   componentDidMount () {

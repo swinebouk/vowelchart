@@ -1,9 +1,10 @@
 export default class Vowel {
-  constructor (openness, frontness, rounded, symbol = null) {
+  constructor (openness, frontness, rounded, symbol = null, visibility = true) {
     this._openness = openness
     this._frontness = frontness
     this._rounded = rounded
     this._symbol = symbol
+    this.visible = visibility
   }
 
   get openness () {
