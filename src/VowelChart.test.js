@@ -1,10 +1,6 @@
 import Vowel from './Vowel'
 import VowelChart from './VowelChart'
-import {
-  Openness as O,
-  Frontness as F,
-  Roundness as R,
-} from './Articulation'
+import {Openness as O, Frontness as F, Roundness as R} from './Articulation'
 
 test('Calculates the primary set positions correctly', () => {
   const chart = new VowelChart(120)

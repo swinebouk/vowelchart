@@ -1,11 +1,7 @@
 import Vowel from './Vowel'
 import _ from 'lodash'
 
-import {
-  Openness as O,
-  Frontness as F,
-  Roundness as R,
-} from './Articulation'
+import {Openness as O, Frontness as F, Roundness as R} from './Articulation'
 
 let vowels = [
   new Vowel(O.close, F.front, R.unrounded, 'i'),
@@ -58,8 +54,11 @@ export default vowels
  * @param {float} frontness
  * @param {bool} rounded
  */
-export function findDefaultVowel (openness, frontness, rounded) {
-  const f = v => v.openness === openness && v.frontness === frontness && v.rounded === rounded
+export function findDefaultVowel(openness, frontness, rounded) {
+  const f = v =>
+    v.openness === openness &&
+    v.frontness === frontness &&
+    v.rounded === rounded
   const v = _.find(vowels, f)
   if (v) {
     return v

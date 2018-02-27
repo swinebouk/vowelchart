@@ -1,17 +1,13 @@
 import Snap from 'snapsvg-cjs'
 import _ from 'lodash'
 
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import VowelChart from './VowelChart'
 import vowels, {findDefaultVowel} from './VowelList'
 
-import {
-  Openness as O,
-  Frontness as F,
-  Roundness as R,
-} from './Articulation'
+import {Openness as O, Frontness as F, Roundness as R} from './Articulation'
 
 export default class VowelPlotter extends Component {
   static propTypes = {
@@ -19,48 +15,54 @@ export default class VowelPlotter extends Component {
     height: PropTypes.string.isRequired,
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.vowelChart = new VowelChart(this.props.width)
   }
 
-  svgRender () {
+  svgRender() {
     this.snap = new Snap(this.svgElem)
 
     this.drawBorder()
     _.each(vowels, v => this.markVowel(v))
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.svgRender()
   }
-  componentDidUpdate () {
+  componentDidUpdate() {
     this.svgRender()
   }
-  render () {
-    return <svg ref={(d) => (this.svgElem = d)} height={this.props.height} width={this.props.width}/>
+  render() {
+    return (
+      <svg
+        ref={d => (this.svgElem = d)}
+        height={this.props.height}
+        width={this.props.width}
+      />
+    )
   }
-  get borderAttr () {
+  get borderAttr() {
     this._borderAttr = this._borderAttr || {fill: 'none', stroke: 'black'}
     return this._borderAttr
   }
 
-  get markAttr () {
+  get markAttr() {
     this._markAttr = this._markAttr || {fill: 'black', stroke: 'black'}
     return this._markAttr
   }
 
-  get labelAttr () {
+  get labelAttr() {
     this._labelAttr = this._labelAttr || {
       'alignment-baseline': 'middle',
-      'fill': 'black',
+      fill: 'black',
       'font-size': `${this.vowelChart.textSize}px`,
       'text-anchor': 'middle',
     }
     return this._labelAttr
   }
 
-  drawBorder () {
+  drawBorder() {
     const coordinatePairs = [
       this.vowelChart.vowelXY(findDefaultVowel(O.close, F.front, R.unrounded)),
       this.vowelChart.vowelXY(findDefaultVowel(O.close, F.back, R.rounded)),
@@ -73,27 +75,27 @@ export default class VowelPlotter extends Component {
     polygon.attr(this.borderAttr)
   }
 
-  markVowel (vowel, label = null) {
+  markVowel(vowel, label = null) {
     this.markVowelCircle(vowel)
     this.labelVowel(vowel, label)
   }
 
-  markVowelCircle (vowel) {
+  markVowelCircle(vowel) {
     const circle = this.snap.circle(
       this.vowelChart.vowelX(vowel),
       this.vowelChart.vowelY(vowel),
-      this.vowelChart.vowelMarkRadius,
+      this.vowelChart.vowelMarkRadius
     )
     circle.attr(this.markAttr)
   }
 
-  labelVowel (vowel, label = null) {
+  labelVowel(vowel, label = null) {
     label = label || vowel.symbol
     const shift = this.vowelChart.textDistance * (vowel.rounded ? 1 : -1)
     const text = this.snap.text(
       this.vowelChart.vowelX(vowel) + shift,
       this.vowelChart.vowelY(vowel),
-      label,
+      label
     )
     text.attr(this.labelAttr)
   }
