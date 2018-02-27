@@ -16,10 +16,13 @@ export default class VowelLang {
    * @returns {Map<String, String>} A map of vowel representations to the
    * symbols to be used.
    */
-  parse (query) {
+  parse(query) {
     const kvAsString = query.split('&')
     const kvAsArray = kvAsString.map(kvPair => kvPair.split('='))
-    const kvDecoded = kvAsArray.map(kvPair => [decodeURIComponent(kvPair[0]), kvPair[1]])
+    const kvDecoded = kvAsArray.map(kvPair => [
+      decodeURIComponent(kvPair[0]),
+      kvPair[1],
+    ])
     const map = new Map(kvDecoded)
     return map
   }
@@ -31,7 +34,7 @@ export default class VowelLang {
    * @example textToVowel("open+front+unrounded") # new Vowel(1, 1, false)
    * @example textToVowel("close+front+unrounded", 'i') # new Vowel(0, 1, false, 'i')
    */
-  textToVowel (text, symbol) {
+  textToVowel(text, symbol) {
     const [openness, frontness, roundness] = text.split('+')
     if (![openness, frontness, roundness].every(e => _.isString(e))) {
       throw new TypeError(`Unparseable: ${text}`)
@@ -47,7 +50,7 @@ export default class VowelLang {
       unrecognizedProperties.roundness = roundness
     }
     if (!_.isEmpty(unrecognizedProperties)) {
-      const kvPairs = _.map(unrecognizedProperties, (v) => `"${v}"`)
+      const kvPairs = _.map(unrecognizedProperties, v => `"${v}"`)
       throw new TypeError(`Unrecognized ${kvPairs.join(', ')}`)
     }
     const o = Openness[openness]

@@ -1,29 +1,29 @@
 export default class Vowel {
-  constructor (openness, frontness, rounded, symbol = null) {
+  constructor(openness, frontness, rounded, symbol = null) {
     this._openness = openness
     this._frontness = frontness
     this._rounded = rounded
     this._symbol = symbol
   }
 
-  get openness () {
+  get openness() {
     return this._openness
   }
 
-  get frontness () {
+  get frontness() {
     return this._frontness
   }
 
-  get rounded () {
+  get rounded() {
     return this._rounded
   }
 
-  get symbol () {
+  get symbol() {
     return this._symbol
   }
 
   // Note: this method is important when using vowels as Object keys.
-  toString () {
+  toString() {
     return `Vowel(${this.openness},${this.frontness},${this.rounded})`
   }
 }
