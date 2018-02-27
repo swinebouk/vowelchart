@@ -2,8 +2,14 @@ language: node_js
 
 sudo: false
 
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
 install:
-  - yarn
+  - NODE_ENV=development yarn install
 
 script:
-  - npm test
+  - yarn lint
+  - yarn test
